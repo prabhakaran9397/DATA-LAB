@@ -89,7 +89,7 @@ void do_remove_node(struct BSTree *t, struct BSTreeNode *p, struct BSTreeNode *p
 	min->val = tmp;
 
 	/* remove the min node now */
-	do_remove_node(min, parent);
+	do_remove_node(t, min, parent);
 }
 
 void remove_node(struct BSTree *t, int val)
@@ -111,7 +111,7 @@ void remove_node(struct BSTree *t, int val)
 	if (p == NULL) /* not found */
 		return;
 
-	do_remove_node(p, parent);
+	do_remove_node(t, p, parent);
 }
 
 void do_postorder(struct BSTreeNode *p, int *arr, int *count)
