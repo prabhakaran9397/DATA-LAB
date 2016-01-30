@@ -1,0 +1,44 @@
+
+1) Indentation should be done using TAB keys, and each tab SHOULD be 8
+characters.
+
+2) A single line should NOT have multiple statements. Following is wrong.
+
+	if (condition) do_this;
+	  do_something_everytime;
+
+3) Each line should NOT be more than 80 characters. Most of the terminal
+programs like putty will default to 80 character window size. DO NOT change
+this.
+
+4) Use one space around (on each side of) most binary and ternary operators,
+such as =  +  -  <  >  *  /  %  |  &  ^  <=  >=  ==  !=  ? etc
+
+5) All local variable names SHOULD be short, clear and meaningful.
+
+6) All global variable and function names SHOULD be descriptive and
+meaningful. If the name required more than one word, separate words by '_'.
+For eg, num_active_users.
+
+7) Functions should be short and sweet, and do just one thing.  They should
+fit on one or two screenfuls of text (ie max 50 lines).
+
+8) A function should NOT have more than 10 local variables.
+
+9) Comments should tell WHAT the code does, not HOW it does it. The HOW
+should be obvious and should not require explanation.
+
+10) Avoid numeric/string literals. Use #defines, consts, typedefs. 
+
+11) No globals. If absolutely necessary, justify and use static in a separate 
+file accessed through functions.
+
+12) No variable/function definitions in header files.
+Only #defines, externs, typedefs and function prototypes.
+
+References:
+1) The C Programming Language, Second Edition
+by Brian W. Kernighan and Dennis M. Ritchie.
+
+2) Linux kernel coding style. Google it and find out.
+

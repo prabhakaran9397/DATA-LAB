@@ -1,0 +1,187 @@
+
+Exercise 1
+----------
+
+Create a file ex1.c with the following declarations and functions.
+
+    struct node
+    {
+        int num;
+        struct node *next;
+    };
+
+    struct node *find(struct node *head, int num);
+
+The function 'find' should search the linked list with given 'head' for a node
+with given 'num'. It returns the node pointer if found, or NULL if no node
+exists with given num.
+
+You can test using 'make test_ex1'.
+
+
+ABSTRACT DATA TYPES
+-------------------
+
+An abstract data type (ADT)is one that is defined ONLY by the operations 
+that may be performed on it. Typically, an ADT exports ONLY a set of 
+interfaces/methods/functions. The details of how those interfaces are
+implemented are completely hidden to the user of the ADT.
+
+For example, an abstract stack data type may be defined using the push and
+pop operations. But a stack may be implemented using an array or linked list
+or some other data structure. But that is irrelevant to the user of the stack
+ADT. The same is true for a queue ADT also.
+
+In general, an abstract data type is not instantiable. That is, the user does
+not typically allocate memory or object of an ADT. Instead, the user always
+allocates memory/object of a 'derived' or 'concrete' data type which 
+'implements' the operations of the ADT. For example, a 'arraystack' is a
+derived or concrete implementation of a stack ADT, and users typically
+create only objects of type arraystack.
+
+
+
+DEFINING ABSTRACT DATA TYPES
+----------------------------
+
+Since ADTs are defined only using the operations it exports, it is defined
+by creating ONLY a header file which declares the prototypes of these 
+operations.
+
+
+LIST - ABSTRACT DATA TYPE
+-------------------------
+
+A 'list' is an abstract data type that represents a list of items. Consider
+a character list that represents a list of characters. The list is abstract
+because it can be implemented using an array or a linked list.
+
+Do not confuse the 'list' ADT with a linked list. A linked list is a concrete
+implementation. A 'list' ADT can be implemented using a linked list.
+
+The operations exported by a 'list' ADT are: insert, remove, get, set etc.
+
+
+GENERAL INSTRUCTIONS
+--------------------
+
+For this session, you will be defining an abstract list data type with the
+following operations. Create a file list.h which declares the following
+operations of the list ADT.
+
+    void * list_create(void);
+
+    void list_free(void *list);
+
+    int list_insert(void *list, int pos, char c);
+
+    void list_remove(void *list, int pos);
+
+    char list_get(void *list, int pos);
+
+    void list_set(void *list, int pos, char c);
+
+    int list_count(void *list);
+
+
+The function 'list_create' creates a character list and
+returns a pointer which can be used to reference that list. The user can
+create multiple lists and uses this pointer to perform operations on the
+corresponding list. The return value of 'void *' ensures that the user of
+the ADT does not know what data structure is used by the implementation.
+You will get a better idea about the returned pointer once you read exercise 2.
+
+The 'list_free' frees the memory allocated for the list.
+
+The 'list_insert' inserts the character 'c' BEFORE the character at position 
+'pos'.
+
+The 'list_remove' removes the character at position 'pos'.
+
+The 'list_get' returns the character at position 'pos'. If 'pos' is invalid,
+it returns 0.
+
+The 'list_set' replaces character at position 'pos' with 'c'. If 'pos' is
+invalid, nothing is done.
+
+
+Exercise 2
+----------
+
+Create a file arraylist.h that declares the following structure.
+
+    #define LIST_MAX_SIZE 100
+
+    struct arraylist
+    {
+        char arr[LIST_MAX_SIZE];
+        int count;
+    };
+
+Note that since an array has a limited size, the list has a maximum size
+defined.
+
+Create a file arraylist.c which includes "list.h" and "arraylist.h".
+The file should implement all list ADT operations using the 'arraylist'
+structure to represent the list.
+
+The function 'list_create' should malloc a struct arraylist and return the
+pointer.
+
+The function 'list_free' should free the memory allocated for the struct
+arraylist.
+
+The 'list_insert' should first move all characters beyond 'pos' by one position
+down. It should then set the character at 'pos' to 'c'. The function should
+return 1 if insert was succesful, or 0 if insert failed as the list is full,
+ie there is already LIST_MAX_SIZE characters in the list.
+
+The 'list_remove' should move all characters beyond 'pos' by one position up.
+
+The 'list_get' and 'list_set' are straight forward get and set functions,
+and 'list_count' should return the number of characters currently in the list.
+
+You can test using 'make test_arraylist'.
+
+
+Exercise 3
+----------
+
+Create a file linkedlist.h that declares the following structure.
+
+    strut node
+    {
+        char c;
+        struct node *next;
+    };
+
+    struct linkedlist
+    {
+        struct node *head;
+    };
+
+Note that since a linked list does not have any size limitation, there is
+no maximum list size defined.
+
+Create a file linkedlist.c which includes "list.h" and "linkedlist.h".
+The file should implement all list ADT operations using the 'linkedlist'
+structure to represent the list.
+
+The function 'list_create' should malloc a struct linkedlist and return the
+pointer. It should also initialize the head to NULL.
+
+The function 'list_free' should traverse the linked list of nodes, and free all
+nodes. It should then free the memory allocated for the struct linkedlist.
+
+The 'list_insert' should create a new node and insert it before the node at
+'pos'. It returns 1 on success, and 0 if insert failed due to memory
+allocation failure.
+ 
+The 'list_remove' should remove the node at position 'pos', and free the node.
+
+The 'list_get' and 'list_set' are straight forward get and set functions,
+and 'list_count' should return the number of characters currently in the list.
+
+You can test using 'make test_linkedlist'.
+
+
