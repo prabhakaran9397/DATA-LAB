@@ -2,8 +2,8 @@
 test_hashtable: hashtable
 	./hashtable
 
-hashtable: hashtable.cpp stub_hashtable.o
-	g++ $^ -o $@
+hashtable: hashtable.c stub_hashtable.o
+	gcc $^ -o $@
 
 clean:
 	rm -f hashtable
