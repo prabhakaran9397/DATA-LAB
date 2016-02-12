@@ -1,19 +1,19 @@
 struct BSTreeNode
 {
     int val;
-    BSTreeNode *left;
-    BSTreeNode *right;
+    struct BSTreeNode *left;
+    struct BSTreeNode *right;
 };
 
-class BSTree
+struct BSTree
 {
-    BSTreeNode *root;
-
-public:
-    BSTree();
-    void add(int val);
-    void remove(int val);
-    int search(int val);
-    int count_non_leaf_nodes(void);
-    void get_inorder(int *arr, int *count);
+    struct BSTreeNode *root;
 };
+
+
+struct BSTree * tree_create(void);
+void add(struct BSTree *t, int val);
+int search(struct BSTree *t, int val);
+void remove_node(struct BSTree *t, int val);
+int count_non_leaf_nodes(struct BSTree *t);
+void get_inorder(struct BSTree *t, int *arr, int *count);

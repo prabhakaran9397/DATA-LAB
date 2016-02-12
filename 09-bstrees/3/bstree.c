@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "bstree.h"
+void inorder(struct BSTreeNode *, int *,int *,int *);
 
-struct BSTree * tree_create()
+struct BSTree * tree_create(void)
 {
 	struct BSTree *t = (struct BSTree *)malloc(sizeof(*t));
 	if (t) {
@@ -10,6 +11,7 @@ struct BSTree * tree_create()
 	}
 	return t; 
 }
+
 void add(struct BSTree *t, int val)
 {
 	struct BSTreeNode *n, *p = t->root, *parent;
@@ -37,6 +39,23 @@ void add(struct BSTree *t, int val)
 		parent->left = n;
 	else
 		parent->right = n;
+}
+
+int search(struct BSTree *t, int val)
+{
+	struct BSTreeNode *p = t->root;
+
+	while (p) {
+
+		if (val == p->val)
+			break;
+		else if (val < p->val)
+			p = p->left;
+		else
+			p = p->right;
+	}
+
+	return (p != NULL);
 }
 void do_remove_node(struct BSTree *t, struct BSTreeNode *p, struct BSTreeNode *parent)
 {
@@ -93,36 +112,17 @@ void remove_node(struct BSTree *t, int val)
 
 	do_remove_node(t, p, parent);
 }
-int search(struct BSTree *t, int val)
+
+int count_non_leaf_nodes(struct BSTree *t)
 {
-	struct BSTreeNode *p = t->root;
-
-	while (p) {
-
-		if (val == p->val)
-			break;
-		else if (val < p->val)
-			p = p->left;
-		else
-			p = p->right;
-	}
-
-	return (p != NULL);
-}
-
-void preorder(struct BSTreeNode *, int *,int *,int *);
-
-int count_leaf_nodes(struct BSTree *t)
-{
-	int leafCnt=0;
+	int nonLeafCnt=0;
 	struct BSTreeNode* temp = t->root;
-	printf("callin preorder..\n");
-	preorder(temp, NULL, NULL, &leafCnt);
-	printf("returned from preorder..\n");
-	return leafCnt;
+	//printf("callin preorder..\n");
+	inorder(temp, NULL, NULL, &nonLeafCnt);
+	//printf("returned from preorder..\n");
+	return nonLeafCnt;
 }
-
-void preorder(struct BSTreeNode* root, int *arr, int *count, int *leafCnt)
+void inorder(struct BSTreeNode *root, int *arr, int *count, int *leafCnt)
 {
 //printf("root\n");
 	if (root)
@@ -130,32 +130,27 @@ void preorder(struct BSTreeNode* root, int *arr, int *count, int *leafCnt)
 //
 		//if(leafCnt)
 	//printf("hi...\n");
+		inorder(root->left,arr,count,leafCnt);
 		if(leafCnt)
 		{	
-			//printf("leafcnt..\n");
-			
-			if((root->right == NULL))//
+						
+			if( (root->right != NULL) || (root->left != NULL) )
 			{
 				//printf("left..\n");
-				if(root->left == NULL)
-				{			
 				//printf("hiiii..\n");
 				(*leafCnt) += 1;
-				return;
-				}
 			}
 		}
 		else
 			arr[(*count)++] = root->val;
 		//printf("%d - ",arr[*count]-1);		
-		preorder(root->left, arr, count, leafCnt);
-		preorder(root->right, arr, count, leafCnt);
+		inorder(root->right, arr, count, leafCnt);
 	}
 }
-void get_preorder(struct BSTree *t, int *arr, int *count)
+void get_inorder(struct BSTree *t, int *arr, int *count)
 {
 	struct BSTreeNode* temp = t->root;
 	*count = 0;
-	preorder(temp, arr, count, NULL);
+	inorder(temp, arr, count, NULL);
 }
 

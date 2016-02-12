@@ -2,22 +2,28 @@
 #include"bstree.h"
 int main()
 {
-	BSTree b;
-	int arr[7], count;
+	struct BSTree* b;
+
+	printf("testing tree create...");
+	if ((b = tree_create()) == NULL)
+		goto fail;
+	printf("[ok]\n");
+
+	int arr[7], count, i;
 	int arr1[7]={5,6,7,10,11,14,15};
-	b.add(10);
-	b.add(7);
-	b.add(5);
-	b.add(14);
-	b.add(6);
-	b.add(11);
-	b.add(15);
+	add(b,10);
+	add(b,7);
+	add(b,5);
+	add(b,14);
+	add(b,6);
+	add(b,11);
+	add(b,15);
 	
 	printf("testing get_inorder...\n");
-	b.get_inorder(arr, &count);
+	get_inorder(b, arr, &count);
 	
 	printf("\tarr check : ");
-	for(int i=0; i<7; i++)
+	for(i=0; i<7; i++)
 	{
 		if(arr[i] != arr1[i])
 			goto fail;
