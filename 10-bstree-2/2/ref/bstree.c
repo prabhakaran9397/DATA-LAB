@@ -2,14 +2,18 @@
 #include <stdlib.h>
 #include "bstree.h"
 
-BSTree::BSTree()
+struct BSTree * tree_create(void)
 {
-	root = NULL;
+	struct BSTree *t = (struct BSTree *)malloc(sizeof(*t));
+	if (t) {
+		t->root = NULL;
+	}
+	return t; 
 }
 
-void BSTree::add(int val)
+void add(struct BSTree *t, int val)
 {
-	struct BSTreeNode *n, *p = root, *parent;
+	struct BSTreeNode *n, *p = t->root, *parent;
 
 	n = (struct BSTreeNode *)malloc(sizeof(*n));
 
@@ -17,8 +21,8 @@ void BSTree::add(int val)
 	n->left = NULL;
 	n->right = NULL;
 
-	if (root == NULL) {
-		root = n;
+	if (t->root == NULL) {
+		t->root = n;
 		return;
 	}
 
@@ -36,9 +40,9 @@ void BSTree::add(int val)
 		parent->right = n;
 }
 
-int BSTree::search(int val)
+int search(struct BSTree *t, int val)
 {
-	struct BSTreeNode *p = root;
+	struct BSTreeNode *p = t->root;
 
 	while (p) {
 
@@ -53,8 +57,7 @@ int BSTree::search(int val)
 	return (p != NULL);
 }
 
-
-void BSTree::do_inorder(struct BSTreeNode *p, int *arr, int *count)
+void do_inorder(struct BSTreeNode *p, int *arr, int *count)
 {
 	if (p == NULL)
 		return;
@@ -67,13 +70,13 @@ void BSTree::do_inorder(struct BSTreeNode *p, int *arr, int *count)
 	do_inorder(p->right, arr, count);
 }
 
-void BSTree::get_inorder(int *arr, int *count)
+void get_inorder(struct BSTree *t, int *arr, int *count)
 {
 	*count = 0;
-	do_inorder(root, arr, count);
+	do_inorder(t->root, arr, count);
 }
 
-int BSTree::do_get_height(struct BSTreeNode *p)
+int do_get_height(struct BSTreeNode *p)
 {
 	int l, r;
 
@@ -86,12 +89,12 @@ int BSTree::do_get_height(struct BSTreeNode *p)
 	return (l > r) ? (l + 1) : (r + 1);
 }
 
-int BSTree::get_height(void)
+int get_height(struct BSTree *t)
 {
-	return do_get_height(root);
+	return do_get_height(t->root);
 }
 
-void BSTree::remove_node(struct BSTreeNode *p, struct BSTreeNode *parent)
+void do_remove_node(struct BSTree *t, struct BSTreeNode *p, struct BSTreeNode *parent)
 {
 	struct BSTreeNode *min;
 	int tmp;
@@ -99,7 +102,7 @@ void BSTree::remove_node(struct BSTreeNode *p, struct BSTreeNode *parent)
 	if (p->right == NULL) { /* no right subtree */
 
 		if (parent == NULL) /* root */
-			root = p->left;
+			t->root = p->left;
 		else if (parent->left == p)
 			parent->left = p->left;
 		else
@@ -122,12 +125,12 @@ void BSTree::remove_node(struct BSTreeNode *p, struct BSTreeNode *parent)
 	min->val = tmp;
 
 	/* remove the min node now */
-	remove_node(min, parent);
+	do_remove_node(t, min, parent);
 }
 
-void BSTree::remove(int val)
+void remove_node(struct BSTree *t, int val)
 {
-	struct BSTreeNode *p = root, *parent = NULL;
+	struct BSTreeNode *p = t->root, *parent = NULL;
 
 	while (p) {
 		if (val == p->val)
@@ -144,5 +147,5 @@ void BSTree::remove(int val)
 	if (p == NULL) /* not found */
 		return;
 
-	remove_node(p, parent);
+	do_remove_node(t, p, parent);
 }
