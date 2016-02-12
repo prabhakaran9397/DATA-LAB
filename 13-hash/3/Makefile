@@ -2,14 +2,14 @@
 test_hashtable: hashtable
 	./hashtable
 
-hashtable: hashtable.cpp stub_hashtable.o
-	g++ $^ -o $@
+hashtable: hashtable.c stub_hashtable.o
+	gcc $^ -o $@
 
 test_openhash: openhash
 	./openhash
 
-openhash: openhash.cpp stub_openhash.o
-	g++ $^ -o $@
+openhash: openhash.c stub_openhash.o
+	gcc $^ -o $@
 
 clean:
 	rm -f hashtable openhash

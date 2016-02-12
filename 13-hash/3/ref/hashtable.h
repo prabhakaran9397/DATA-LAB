@@ -4,15 +4,12 @@ struct entry
 	int val;
 };
 
-class HashTable
+struct HashTable
 {
 	int size;
 	struct entry *arr;
-
-public:
-	HashTable(int size);
-	int insert(struct entry *e);
-	int search(int key, int *val, int *nops);
 };
-
+void create(struct HashTable *ht, int size);
+int insert(struct HashTable *ht, struct entry *e);
+int search(struct HashTable *ht, int key, int *val, int *nops);
 
