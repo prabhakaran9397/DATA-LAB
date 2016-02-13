@@ -36,17 +36,17 @@ Create a file bstree.h with the following declarations.
         struct BSTreeNode *right;
     };
 
-    class BSTree
+    struct BSTree
     {
         struct BSTreeNode *root;
-
-    public:
-        BSTree();
-        void add(int val);
-        int search(int val);
     };
 
-The constructor should set the member 'root' to NULL.
+    struct BSTree * tree_create(void);
+    void add(struct BSTree *t, int val);
+    int search(struct BSTree *t, int val);
+
+The 'tree_create' should allocate 'struct BSTree', set the member 'root' to NULL
+and return it.
 
 The 'add' should allocate a node, assign 'val' to the node, and add the
 node to the tree pointed by 'root'.
@@ -54,7 +54,7 @@ node to the tree pointed by 'root'.
 The 'search' should scan the tree for a node with value 'val'. If such a node
 is found, it should return 1, 0 otherwise.
 
-Create a file bstree.cpp with the implementation of the above functions.
+Create a file bstree.c with the implementation of the above functions.
 
 You can test using 'make test_bstree1'.
 
@@ -64,11 +64,11 @@ Exercise 2
 
 *** YOU HAVE TO FINISH EXERCISE 1 BEFORE PROCEEDING ***
 
-Modify the class BSTree (in bstree.h) and add the following public member
+Modify the class BSTree (in bstree.h) and add the following
 function.
 
-    void get_preorder(int *arr, int *count);
-    int count_non_leaf_nodes(void); 
+    void get_preorder(struct BSTree *t, int *arr, int *count);
+    int count_non_leaf_nodes(struct BSTree *t); 
 
 The 'get_preorder' should do a preorder traversal of the tree and store the
 values in the tree (in preorder sequence) in 'arr' array. It should also store
@@ -76,7 +76,7 @@ the number of nodes in the tree in the 'count'.
 
 The 'count_non_leaf_nodes' should return the number of non leaf nodes in the tree.
 
-Implement the above functions in bstree.cpp.
+Implement the above functions in bstree.c
 
 You can test using 'make test_bstree2'.
 
@@ -86,15 +86,15 @@ Exercise 3
 
 *** YOU HAVE TO FINISH EXERCISE 1 BEFORE PROCEEDING ***
 
-Modify the class BSTree (in bstree.h) and add the following public member
-function to the class.
+Modify the class BSTree (in bstree.h) and add the following
+function.
 
-    void remove(int val);
+    void remove_node(struct BSTree *t, int val);
 
-The 'remove' should search for a node with value 'val', remove the node
+The 'remove_node' should search for a node with value 'val', remove the node
 from the tree, and free the memory for the node.
 
-Implement the above function in bstree.cpp.
+Implement the above function in bstree.c
 
 You can test using 'make test_bstree3'.
 

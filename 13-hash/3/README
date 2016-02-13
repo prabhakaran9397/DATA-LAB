@@ -49,18 +49,16 @@ Create a file hashtable.h with the following class.
         int val;
     };
 
-    class HashTable
+    struct HashTable
     {
         int size;
         struct entry *arr;
-
-    public:
-        HashTable(int size);
-        int insert(struct entry *e);
-        int search(int key, int *val, int *nops);
     };
+    void create(struct HashTable *ht, int size);
+    int insert(struct HashTable *ht, struct entry *e);
+    int search(struct HashTable *ht, int key, int *val, int *nops);
 
-The constructor should allocate a hash table of size 'size'.
+The 'create' should allocate a hash table of size 'size'.
 
 The 'insert' function should insert 'e' into the hash table. The function 
 should return 1 on success, 0 otherwise.
@@ -76,7 +74,7 @@ store the number of operations in 'nops'. The number of operations is
 defined as the number of entries/slots looked up in the hash table to find 
 the key. If the key is not found, the function should return 0.
 
-Create a file hashtable.cpp with the implementation of HashTable.
+Create a file hashtable.c with the implementation of HashTable.
 
 You can test using 'make test_hashtable'.
 
@@ -88,23 +86,23 @@ Create a file openhash.h with the following class.
 
     struct entry
     {
-        int key;
-        int val;
-	struct entry *next;
+            int key;
+            int val;
+        struct entry *next;
     };
 
-    class OpenHashTable
+    struct OpenHashTable
     {
-        int size;
-        struct entry **arr;
 
-    public:
-        OpenHashTable(int size);
-        int insert(struct entry *e);
-        int search(int key, int *val, int *nops);
+            int size;
+            struct entry **arr;
     };
 
-The constructor should allocate a hash table (array of struct entry pointers) 
+    void create(struct OpenHashTable *h, int size);
+    int insert(struct OpenHashTable *h, struct entry *e);
+    int search(struct OpenHashTable *h, int key, int *val, int *nops);
+
+The 'create' should allocate a hash table (array of struct entry pointers) 
 of size 'size'.
 
 The 'insert' function should insert 'e' into the hash table. The function 
@@ -122,7 +120,7 @@ store the number of operations in 'nops'. The number of operations is
 defined as the number of entries looked up in the hash table to find 
 the key. If the key is not found, the function should return 0.
 
-Create a file openhash.cpp with the implementation of OpenHashTable.
+Create a file openhash.c with the implementation of OpenHashTable.
 
 You can test using 'make test_openhash'.
 

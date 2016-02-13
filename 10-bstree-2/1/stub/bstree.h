@@ -9,6 +9,7 @@ struct BSTree
 {
 	struct BSTreeNode *root;
 };
+
 void do_preorder(struct BSTreeNode *p, int *arr, int *count);
 int do_count_non_leaf_nodes(struct BSTreeNode *p);
 void do_remove_node(struct BSTree *t, struct BSTreeNode *p, struct BSTreeNode *parent);

@@ -46,10 +46,18 @@ Create a file bstree.h with the following declarations.
     void add(struct BSTree *t, int val);
     int search(struct BSTree *t, int val);
     void remove_node(struct BSTree *t, int val);    
-    void get_postorder(struct BSTree *t, int *arr, int *count);
-    int get_height(struct BSTree *t);
 
-#Has to be filled
+The 'tree_create' should allocate 'struct BSTree', set the member 'root' to NULL
+and return it.
+
+The 'add' should allocate a node, assign 'val' to the node, and add the
+node to the tree pointed by 'root'.
+
+The 'remove_node' should search for a node with value 'val', remove the node
+from the tree, and free the memory for the node.
+
+The 'search' should scan the tree for a node with value 'val'. If such a node
+is found, it should return 1, 0 otherwise.
 
 Create a file bstree.c with the implementation of the above functions.
 
@@ -61,10 +69,10 @@ Exercise 2
 
 *** YOU HAVE TO FINISH EXERCISE 1 BEFORE PROCEEDING ***
 
-Modify the class BSTree (in bstree.h) and add the following public member
-function to the class.
+Modify the class BSTree (in bstree.h) and add the following
+function.
 
-        int get_height(void);
+        int get_height(struct BSTree *t);
 
 The 'get_height' should return the height of the binary search tree. The height
 of a binary search tree is defined as the number of edges in the longest
@@ -77,7 +85,7 @@ the number of nodes in the longest path minus 1.
 tree traversal, but you can traverse in any order - preorder, inorder or 
 postorder].
 
-Implement the above function in bstree.cpp.
+Implement the above function in bstree.c
 
 You can test using 'make test_bstree2'.
 
@@ -87,15 +95,15 @@ Exercise 3
 
 *** YOU HAVE TO FINISH EXERCISE 1 BEFORE PROCEEDING ***
 
-Modify the class BSTree (in bstree.h) and add the following public member
-function to the class.
+Modify the class BSTree (in bstree.h) and add the following
+function.
 
-        void get_postorder(int *arr, int *count);
+        void get_postorder(struct BSTree *t, int *arr, int *count);
 
 The 'get_postorder' should do a postorder traversal of the tree and store the
 values in the tree (in postorder form) in 'arr' array. It should also store 
 the number of nodes in the tree in the 'count'.
 
-Implement the above function in bstree.cpp.
+Implement the above function in bstree.c.
 
 You can test using 'make test_bstree3'.
